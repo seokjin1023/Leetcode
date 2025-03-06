@@ -16,11 +16,6 @@
 class Solution {
     String answer = "";
     private String compare(String a, String b) {
-        if(a.length() != b.length()) {
-            if(a.length() < b.length())
-                return a;
-            return b;
-        }
         if(a.compareTo(b) < 0)
             return a;
         return b;

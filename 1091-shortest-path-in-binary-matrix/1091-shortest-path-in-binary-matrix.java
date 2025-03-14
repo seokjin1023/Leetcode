@@ -19,6 +19,8 @@ class Solution {
                 }
             }
         }
+        if(grid[grid.length - 1][grid[0].length -1] == 0)
+            return -1;
         return grid[grid.length - 1][grid[0].length - 1];
     }
 }

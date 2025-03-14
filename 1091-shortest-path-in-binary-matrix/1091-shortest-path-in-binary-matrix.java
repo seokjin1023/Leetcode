@@ -14,13 +14,13 @@ class Solution {
                 int x = direction[i][0];
                 int y = direction[i][1];
                 if(curX + x >= 0 && curX + x < grid.length && curY + y >= 0 && curY + y < grid.length && grid[curX + x][curY + y] == 0) {
+                    if(curX + x == grid.length - 1 && curY + y == grid.length - 1)
+                        return grid[curX][curY] + 1;
                     grid[curX + x][curY + y] = grid[curX][curY] + 1;
                     bfs.add(new int[]{curX + x, curY + y});
                 }
             }
         }
-        if(grid[grid.length - 1][grid[0].length -1] == 0)
-            return -1;
-        return grid[grid.length - 1][grid[0].length - 1];
+        return -1;
     }
 }

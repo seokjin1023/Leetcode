@@ -14,41 +14,25 @@
  * }
  */
 class Solution {
-    private class Treedepth {
-        TreeNode node;
-        boolean goRight;
-        int depth;
-
-        Treedepth(TreeNode node, boolean goRight, int depth) {
-            this.node = node;
-            this.goRight = goRight;
-            this.depth = depth;
+    int answer = 0;
+    private void zigZag(TreeNode node, boolean goRight, int depth) {
+        if(node == null)
+            return;
+        
+        if(depth > answer)
+            answer = depth;
+        
+        if(goRight) {
+            zigZag(node.right, false, depth + 1);
+            zigZag(node.left, true, 1);
+        }
+        else {
+            zigZag(node.left, true, depth + 1);
+            zigZag(node.right, false, 1);
         }
     }
     public int longestZigZag(TreeNode root) {
-        int answer = 0;
-        Queue<Treedepth> que = new LinkedList<>();
-        que.add(new Treedepth(root, true, 0));
-        que.add(new Treedepth(root, false, 0));
-        while(!que.isEmpty()) {
-            Treedepth treedepth = que.poll();
-            if(treedepth.goRight) {
-                if(treedepth.node.right != null)
-                    que.add(new Treedepth(treedepth.node.right, false, treedepth.depth + 1));
-                else
-                    answer = Math.max(answer, treedepth.depth);
-                if(treedepth.node.left != null)
-                    que.add(new Treedepth(treedepth.node.left, true, 1));
-            }
-            else {
-                if(treedepth.node.left != null)
-                    que.add(new Treedepth(treedepth.node.left, true, treedepth.depth + 1));
-                else
-                    answer = Math.max(answer, treedepth.depth);
-                if(treedepth.node.right != null)
-                    que.add(new Treedepth(treedepth.node.right, false, 1));
-            }
-        }
+        zigZag(root, true, 0);
         
         return answer;
     }

@@ -1,9 +1,8 @@
 class Solution {
     public long repairCars(int[] ranks, int cars) {
         long answer = 0;
-        Arrays.sort(ranks);
         long low = 0L;
-        long high = (long)ranks[ranks.length - 1] * cars * cars;
+        long high = (long)ranks[0] * cars * cars;
         while(low <= high) {
             long time = (low + high) / 2;
             System.out.println(low + " " + high + " " + time);

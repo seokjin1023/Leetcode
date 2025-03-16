@@ -5,7 +5,6 @@ class Solution {
         long high = (long)ranks[0] * cars * cars;
         while(low <= high) {
             long time = (low + high) / 2;
-            System.out.println(low + " " + high + " " + time);
             long canRepair = 0;
             for(int rank : ranks) {
                 canRepair += (long)Math.sqrt(time / rank);

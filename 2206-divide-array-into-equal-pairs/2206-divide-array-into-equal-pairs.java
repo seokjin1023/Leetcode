@@ -1,13 +1,10 @@
 class Solution {
     public boolean divideArray(int[] nums) {
-        Map<Integer, Integer> map = new HashMap<>();
-        for(int num : nums) {
-            Integer count = map.getOrDefault(num, 0);
-            count++;
-            map.put(num, count);
-        }
-        for(Integer num : map.keySet()) {
-            if(map.get(num) % 2 != 0)
+        int[] countNum = new int[501];
+        for(int num : nums)
+            countNum[num]++;
+        for(int i = 1; i < 501; i++) {
+            if(countNum[i] % 2 != 0)
                 return false;
         }
         return true;

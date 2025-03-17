@@ -11,7 +11,7 @@ class Solution {
             if(firstNum < answer) return -1;
 
             int bitOfNum = Long.bitCount(firstNum);
-            if(bitOfNum < answer) {
+            if(bitOfNum <= answer) {
                 canMake = true;
                 break;
             }

@@ -1,27 +1,25 @@
 class Solution {
     public int makeTheIntegerZero(int num1, int num2) {
-        if(num1 <= num2)
-            return -1;
+        
+        long firstNum = (long)num1;
+        long secondNum = (long)num2;
+        
+        int answer = 1;
+        boolean canMake = false;
+        while(true) {
+            firstNum -= secondNum;
+            if(firstNum < answer) return -1;
 
-        int answer = Integer.MAX_VALUE;
-
-        for(long i = 0; i <= 60; i++) {
-            long target = (long)num1 - i * (long)num2;
-            if(target <= 0) break;
-            int operationNum = 0;
-            long maxOperationNum = 0;
-            while(target > 0) {
-                if(operationNum > i) break;
-                long highNum = Long.highestOneBit(target);
-                target -= highNum;
-                operationNum++;
-                maxOperationNum += highNum;
+            int bitOfNum = Long.bitCount(firstNum);
+            if(bitOfNum < answer) {
+                canMake = true;
+                break;
             }
-            if(operationNum <= i && maxOperationNum >= i)
-                answer = Math.min(answer, (int)i);
+            answer++;
         }
-        if(answer == Integer.MAX_VALUE)
-            return -1;
-        return answer;
+
+        if(canMake)
+            return answer;
+        return -1;
     }
 }

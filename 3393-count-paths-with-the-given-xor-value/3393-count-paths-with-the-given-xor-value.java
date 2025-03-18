@@ -29,7 +29,6 @@ class Solution {
                 }
             }
         }
-        System.out.println(Arrays.toString(xorGrid[m - 1][n - 1]));
         return xorGrid[m - 1][n - 1][k];
     }
 }

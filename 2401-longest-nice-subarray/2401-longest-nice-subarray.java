@@ -1,34 +1,20 @@
+//AND 연산을 한 이후 그것을 되돌리고 싶다면 원래 알던 수를 |연산을 통해서 다시 계산하면 되돌아옴.
+//a & b == a + b일 때 둘의 비트가 겹치지 않는 것!
 class Solution {
-    private boolean canAdd(boolean[] bit, String bitNum) {
-        for(int i = 0; i < bitNum.length(); i++) {
-            if(bitNum.charAt(bitNum.length() - 1 - i) == '1') {
-                if(bit[i])
-                    return false;
-            }
-        }
-        return true;
-    }
     public int longestNiceSubarray(int[] nums) {
-        boolean[] bit = new boolean[32];
         Queue<Integer> que = new LinkedList<>();
-        int answer = Integer.MIN_VALUE;
-        int subLength = 0;
-        for(int num : nums) {
-            String bitNum = Integer.toString(num, 2);
-            while(!canAdd(bit, bitNum) && !que.isEmpty()) {
-                String subBitNum = Integer.toString(que.poll(), 2);
-                for(int i = 0; i < subBitNum.length(); i++) {
-                    if(subBitNum.charAt(subBitNum.length() - 1 - i) == '1')
-                        bit[i] = false;
-                }
+        int answer = 0;
+        int subLength = 1;
+        int sum = nums[0];
+        que.add(nums[0]);
+        for(int i = 1; i < nums.length; i++) {
+            while((sum ^ nums[i]) != sum + nums[i] && !que.isEmpty()) {
+                sum ^= que.poll();
                 subLength--;
             }
-            for(int i = 0; i < bitNum.length(); i++) {
-                if(bitNum.charAt(bitNum.length() - 1 - i) == '1')
-                    bit[i] = true;
-            }
-            que.add(num);
+            sum ^= nums[i];
             subLength++;
+            que.add(nums[i]);
             answer = Math.max(answer, subLength);
         }
         return answer;

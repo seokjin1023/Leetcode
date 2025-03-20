@@ -12,9 +12,9 @@ class Solution {
             if(nums[second] >= left && nums[second] <= right)
                 latestFitIndex = second;
             
-            int countArray = Math.min(second + 1, latestFitIndex + 1);
-            
-            countArray -= frontBlock + 1; //만약 right보다 높은 수가 중간에 존재하면 그 이후만 계산
+            int countArray = 0;
+            if(latestFitIndex != -1)
+                countArray += latestFitIndex - frontBlock; 
             
             if(countArray > 0)
                 answer += countArray;

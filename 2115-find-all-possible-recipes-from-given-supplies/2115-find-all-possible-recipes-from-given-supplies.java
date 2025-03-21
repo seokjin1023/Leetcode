@@ -12,9 +12,9 @@ class Solution {
             hasNewIngredients = false;
             Set<Integer> toRemove = new HashSet<>();
             for(Integer recipeNum : canNotMake) {
-                List<String> currentIngredients = ingredients.get(recipeNum);
+                List<String> needIngredients = ingredients.get(recipeNum);
                 boolean canMake = true;
-                for(String ingredient : currentIngredients) {
+                for(String ingredient : needIngredients) {
                     if(!newIngredients.contains(ingredient)) {
                         canMake = false;
                         break;

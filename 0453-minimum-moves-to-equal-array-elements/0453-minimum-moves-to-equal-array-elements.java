@@ -4,8 +4,10 @@
 
 class Solution {
     public int minMoves(int[] nums) {
-        int min = Arrays.stream(nums).min().getAsInt();
-        int sum = Arrays.stream(nums).sum();
-        return sum - min * nums.length;
+        int min = Integer.MAX_VALUE;
+        int answer = 0;
+        for(int num : nums) min = Math.min(min, num);
+        for(int num : nums) answer += num - min;
+        return answer;
     }
 }

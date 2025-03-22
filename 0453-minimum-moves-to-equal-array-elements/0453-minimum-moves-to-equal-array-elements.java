@@ -1,10 +1,10 @@
 class Solution {
     public int minMoves(int[] nums) {
         Arrays.sort(nums);
-        int[] sum = new int[nums.length];
-        for(int i = 1; i < nums.length; i++) {
-            sum[i] = nums[i] - nums[i - 1] + sum[i - 1];
+        int answer = 0;
+        for(int i = 0; i < nums.length - 1; i++) {
+            answer += (nums[i + 1] - nums[i]) * (nums.length - 1 - i);
         }
-        return Arrays.stream(sum).sum();
+        return answer;
     }
 }

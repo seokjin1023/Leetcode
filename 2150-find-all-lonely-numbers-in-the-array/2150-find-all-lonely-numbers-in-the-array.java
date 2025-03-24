@@ -1,18 +1,18 @@
 class Solution {
     public List<Integer> findLonely(int[] nums) {
-        List<Integer> answer = new ArrayList<>();
-        Map<Integer, Integer> map = new HashMap<>();
+        Set<Integer> lonelyNum = new HashSet<>();
+        Set<Integer> isPresent = new HashSet<>();
         for(int num : nums) {
-            Integer count = map.getOrDefault(num, 0);
-            count++;
-            map.put(num, count);
-        }
-        for(Integer num : map.keySet()) {
-            if(map.get(num) == 1) {
-                if(!map.containsKey(num - 1) && !map.containsKey(num + 1))
-                    answer.add(num);
+            boolean isLonely = true;
+            for(int i = -1 ; i <= 1; i++) {
+                if(isPresent.contains(num + i)) {
+                    lonelyNum.remove(num + i);
+                    isLonely = false;
+                }
             }
+            if(isLonely) lonelyNum.add(num);
+            isPresent.add(num);
         }
-        return answer;
+        return new ArrayList<>(lonelyNum);
     }
 }

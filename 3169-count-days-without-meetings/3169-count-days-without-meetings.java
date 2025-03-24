@@ -11,6 +11,7 @@ class Solution {
         int maxEndMeeting = 0;
         for(int[] meeting : meetings) {
             int start = meeting[0], end = meeting[1];
+            if(end <= maxEndMeeting) continue;
             int emptyDay = start - maxEndMeeting - 1;
             if(emptyDay > 0) work += emptyDay;
             maxEndMeeting = Math.max(maxEndMeeting, end);

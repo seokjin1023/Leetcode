@@ -5,19 +5,20 @@ class Solution {
             String[] countPair = cpdomain.split(" ");
             int visit = Integer.parseInt(countPair[0]);
             String[] subdomain = countPair[1].split("\\.");
-            for(int i = 0; i < subdomain.length; i++) {
-                String domain = subdomain[i];
-                for(int j = i + 1; j < subdomain.length; j++) {
-                    domain += "." + subdomain[j];
+
+            StringBuilder domainBuilder = new StringBuilder();
+            for (int i = subdomain.length - 1; i >= 0; i--) {
+                if (domainBuilder.length() > 0) {
+                    domainBuilder.insert(0, ".");
                 }
-                int counted = countDomain.getOrDefault(domain, 0);
-                counted += visit;
-                countDomain.put(domain, counted);
+                domainBuilder.insert(0, subdomain[i]);
+                String domain = domainBuilder.toString();
+                countDomain.put(domain, countDomain.getOrDefault(domain, 0) + visit);
             }
         }
         List<String> answer = new ArrayList<>();
-        for(String domain : countDomain.keySet()) {
-            answer.add(Integer.toString(countDomain.get(domain)) + " " + domain);
+        for (Map.Entry<String, Integer> entry : countDomain.entrySet()) {
+            answer.add(entry.getValue() + " " + entry.getKey());
         }
         return answer;
     }

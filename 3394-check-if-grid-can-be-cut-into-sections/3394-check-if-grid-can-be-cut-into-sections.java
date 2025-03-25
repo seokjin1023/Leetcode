@@ -3,28 +3,20 @@
 //start되는 부분이 end보다 크다면 그 중간에 cut을 적용해도 괜찮다!
 class Solution {
     public boolean checkValidCuts(int n, int[][] rectangles) {
-        List<int[]> xList = getPosition(true, rectangles);
-        List<int[]> yList = getPosition(false, rectangles);
-        if(getBoundNum(xList) >= 2 || getBoundNum(yList) >= 2)
-            return true;
-        return false;
-    }
-    private List<int[]> getPosition(boolean isX, int[][]rectangles) {
-        List<int[]> list = new ArrayList<>();
-        int start = 1, end = 3;
-        if(isX) {
-            start = 0;
-            end = 2;
+        int[][] xPos = new int[rectangles.length][2];
+        int[][] yPos = new int[rectangles.length][2];
+        for (int i = 0; i < rectangles.length; i++) {
+            xPos[i][0] = rectangles[i][0];
+            xPos[i][1] = rectangles[i][2];
+            yPos[i][0] = rectangles[i][1];
+            yPos[i][1] = rectangles[i][3];
         }
-        for(int[] rectangle : rectangles)
-            list.add(new int[]{rectangle[start], rectangle[end]});
-
-        list.sort(Comparator.comparingInt(a -> a[0]));
-        return list;
+        return getBoundNum(xPos) || getBoundNum(yPos);
     }
-    private int getBoundNum(List<int[]> positions) {
+    private boolean getBoundNum(int[][] positions) {
+        Arrays.sort(positions, Comparator.comparingInt(a -> a[0]));
         int boundCount = 0;
-        int end = positions.get(0)[1];
+        int end = positions[0][1];
         for(int[] position : positions) {
             if(position[0] >= end) {
                 boundCount++;
@@ -35,6 +27,6 @@ class Solution {
             }
             if(boundCount >= 2) break;
         }
-        return boundCount;
+        return boundCount >= 2;
     }
 }

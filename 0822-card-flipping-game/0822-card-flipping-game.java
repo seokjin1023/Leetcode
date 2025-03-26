@@ -11,11 +11,13 @@ class Solution {
             allNum[2 * i] = fronts[i];
             allNum[2 * i + 1] = backs[i];
         }
-        Arrays.sort(allNum);
+        int answer = Integer.MAX_VALUE;
         for(int num : allNum) {
             if(!canNotBe.contains(num))
-                return num;
+                answer = Math.min(answer, num);
         }
-        return 0;
+        if(answer == Integer.MAX_VALUE)
+            return 0;
+        return answer;
     }
 }

@@ -21,7 +21,7 @@ class Solution {
     private List<Integer> answer = new ArrayList<>();
 
     private void dfs(Node node) {
-        if(node.children == null || node.children.isEmpty()) {
+        if(node.children.isEmpty()) {
             answer.add(node.val);
             return;
         }

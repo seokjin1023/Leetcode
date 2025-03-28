@@ -1,21 +1,16 @@
 class Solution {
     public String makeGood(String s) {
-        Stack<Character> stack = new Stack<>();
         char[] string = s.toCharArray();
+        StringBuilder sb = new StringBuilder();
         for(char c : string) {
-            if(!stack.isEmpty()) {
-                if(Math.abs(c - stack.peek()) == 32) {
-                    stack.pop();
-                }
+            if(sb.length() != 0) {
+                if(Math.abs(sb.charAt(sb.length() - 1) - c) == 32)
+                    sb.deleteCharAt(sb.length() - 1);
                 else
-                    stack.push(c);
+                    sb.append(c);
             }
             else
-                stack.push(c);
-        }
-        StringBuilder sb = new StringBuilder();
-        while(!stack.isEmpty()) {
-            sb.insert(0, stack.pop());
+                sb.append(c);
         }
         return sb.toString();
     }

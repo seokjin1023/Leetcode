@@ -16,25 +16,21 @@
 class Solution {
     private int answer = 0;
 
-    private int[] dfs(TreeNode root, int sum, int visited) {
-        if(root.left == null && root.right == null) {
-            answer++;
-            visited++;
-            sum += root.val;
-            return new int[]{sum, visited};
-        }
-        int[] leftSum = new int[2];
-        int[] rightSum = new int[2];
-        if(root.left != null) leftSum = dfs(root.left, sum, visited);
-        if(root.right != null) rightSum = dfs(root.right, sum, visited);
-        sum += root.val + leftSum[0] + rightSum[0];
-        visited++;
-        visited += leftSum[1] + rightSum[1];
-        if(sum / visited == root.val) answer++;
-        return new int[]{sum, visited};
+    private int[] dfs(TreeNode node) {
+        if (node == null) return new int[]{0, 0};
+
+        int[] left = dfs(node.left);
+        int[] right = dfs(node.right);
+
+        int sum = node.val + left[0] + right[0];
+        int count = 1 + left[1] + right[1];
+
+        if (sum / count == node.val) answer++;
+
+        return new int[]{sum, count};
     }
     public int averageOfSubtree(TreeNode root) {
-        int[] v = dfs(root, 0, 0);
+        int[] v = dfs(root);
         return answer;
     }
 }

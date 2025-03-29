@@ -6,7 +6,6 @@ class Solution {
             if(uniqueNum.add(num))
                 nums[index++] = num;
         }
-        int answerSize = uniqueNum.size();
-        return answerSize;
+        return index;
     }
 }

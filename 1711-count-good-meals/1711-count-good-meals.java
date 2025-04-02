@@ -12,16 +12,16 @@ class Solution {
         for(int delicious : deliciousness)
             map.merge(delicious, 1, Integer::sum);
         for(Integer delicious : map.keySet()) {
-            int itemNum = map.get(delicious);
+            long itemNum = (long)map.get(delicious);
             for(int power : powerOfTwo) {
                 if(power < delicious) continue;
                 int restNum = power - delicious;
                 if(map.containsKey(restNum)) {
                     if(restNum == delicious)
-                        answer += ((long)itemNum * (long)(itemNum - 1) / 2) % mod;
+                        answer += (int)((itemNum * (itemNum - 1) / 2) % mod);
                     else {
                         if(!isUsed.contains(restNum))
-                            answer += (itemNum * map.get(restNum)) % mod;
+                            answer += (int)((itemNum * map.get(restNum)) % mod);
                     }
                 }
             }

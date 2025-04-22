@@ -12,7 +12,6 @@ public class Solution extends GuessGame {
         int start = 1;
         int end = n;
         while(start <= end) {
-            System.out.println(start + " " + end);
             int mid = (int)(((long)start + (long)end) / 2);
             if(guess(mid) == 0) return mid;
             if(guess(mid) == -1) {

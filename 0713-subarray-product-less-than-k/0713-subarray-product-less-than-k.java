@@ -1,30 +1,22 @@
 class Solution {
     public int numSubarrayProductLessThanK(int[] nums, int k) {
-        if(k == 0 || k == 1)
-            return 0;
-        int answer = 0;
+        if (k <= 1) return 0;
+
         int product = 1;
-        Queue<Integer> que = new LinkedList<>();
-        for(int num : nums) {
-            if(num >= k) {
-                while(!que.isEmpty()) {
-                    answer += que.size();
-                    product /= que.poll();
-                }
+        int left = 0;
+        int answer = 0;
+
+        for (int right = 0; right < nums.length; right++) {
+            product *= nums[right];
+
+            while (product >= k && left <= right) {
+                product /= nums[left];
+                left++;
             }
-            else {
-                while(product * num >= k) {
-                    answer += que.size();
-                    product /= que.poll();
-                }
-                product *= num;
-                que.add(num);
-            }
+
+            answer += (right - left + 1);
         }
-        while(!que.isEmpty()) {
-            answer += que.size();
-            que.poll();
-        }
+
         return answer;
     }
 }
